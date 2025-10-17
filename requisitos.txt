@@ -1,0 +1,6 @@
+#Docker instalado
+#Instalar WSL 2
+#Instalar Node.js
+#Instalar playwright
+#Instalar o git bash (pré-requisito)
+

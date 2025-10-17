@@ -1,0 +1,17 @@
+{
+  "name": "bootcamp2-chrome-ext-LuanJywago",
+  "version": "1.0.0",
+  "description": "Extensão Chrome Bootcamp - Entrega Intermediária (Docker + CI)",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-extension.mjs",
+    "test:e2e": "playwright test --reporter=list,html",
+    "test": "npm run build && npm run test:e2e",
+    "ci": "npm ci && npm run test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.8.1",
+    "archiver": "^7.0.0"
+  }
+}

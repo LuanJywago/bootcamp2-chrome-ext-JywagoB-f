@@ -1,0 +1,46 @@
+name: CI - Testes da Extensão Bootcamp
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Faz checkout do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2️⃣ Instala o Node.js (versão LTS)
+      - name: Configura Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3️⃣ Instala dependências
+      - name: Instala dependências
+        run: npm ci
+
+      # 4️⃣ Instala navegadores Playwright
+      - name: Instala Playwright
+        run: npx playwright install --with-deps chromium
+
+      # 5️⃣ Build da extensão
+      - name: Build da extensão
+        run: node scripts/build-extension.mjs
+
+      # 6️⃣ Executa os testes com Playwright
+      - name: Roda testes E2E
+        run: npx playwright test --reporter=list,html
+
+      # 7️⃣ Publica o relatório HTML dos testes
+      - name: Publica relatório de testes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
